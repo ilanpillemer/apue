@@ -52,7 +52,7 @@ func main() {
 			if int(rl_offset) > len(p) || int(rl_offset+1) > len(p) {
 				break
 			}
-			rl := uint64(p[rl_offset]) | uint64(p[rl_offset+1])<<8
+			rl := uint64(p[rl_offset]) | uint64(p[rl_offset+1])<<8 // assuming big endian
 			if int(rl) > len(p) {
 				break
 			}
@@ -64,7 +64,7 @@ func main() {
 				break
 			} else {
 				nl_offset := unsafe.Offsetof(Dirent{}.Namlen)
-				nl := uint64(record[nl_offset]) | uint64(record[nl_offset+1])<<8
+				nl := uint64(record[nl_offset]) | uint64(record[nl_offset+1])<<8 // assuming big endian
 				name_offset := uint64(unsafe.Offsetof(Dirent{}.Name))
 
 				if name_offset+nl > uint64(len(p)) {
