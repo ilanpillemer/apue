@@ -193,7 +193,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	buff := make([]byte, 128) // magic number?
+	buff := make([]byte, 64) // magic number?
 
 	// drain all directory entries buffer of directory entries...
 	// each call to ReadDirent updates the buffer and returns the
@@ -201,8 +201,10 @@ func main() {
 	// directory.
 
 	for n, _ := unix.ReadDirent(fd, buff); n != 0; n, _ = unix.ReadDirent(fd, buff) {
-		p := buff
-		// drain the data in p
+		var p []byte
+		// make sure nothing is lost as there may be some end stuff needed...
+		p = append(p, buff...)
+		// drain the data in p until only a little is left that is not enough...
 		for len(p) > 0 {
 			// get first directory entry record in the buffer
 
