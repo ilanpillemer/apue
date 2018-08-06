@@ -28,7 +28,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	buff := make([]byte, 64) // magic number?
+	buff := make([]byte, 256) // magic number. but needs to big enough to prevent infinite loops into buffer.
 
 	// drain all directory entries buffer of directory entries...
 	// each call to ReadDirent updates the buffer and returns the
@@ -60,7 +60,6 @@ func main() {
 			record := p[:rl]
 			//nl_size := unsafe.Sizeof(Dirent{}.Namlen)
 			if len(record) == 0 {
-				//log.Println("We have drained... need more buffer")
 				//n, _ = unix.ReadDirent(fd, p)
 				break
 			} else {
