@@ -22,5 +22,4 @@ func main() {
 		name := C.GoString(&dirent.d_name[0])
 		fmt.Println(name)
 	}
-
 }
