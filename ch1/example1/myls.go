@@ -13,7 +13,7 @@ import (
 func main() {
 	if len(os.Args) != 2 {
 		fmt.Println("usage: myls directory_name")
-		return
+		os.Exit(1)
 	}
 
 	dir, err := C.opendir(C.CString(os.Args[1]))
