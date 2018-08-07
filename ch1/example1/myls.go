@@ -11,6 +11,11 @@ import (
 )
 
 func main() {
+	if len(os.Args) != 2 {
+		fmt.Println("usage: myls directory_name")
+		return
+	}
+
 	dir, err := C.opendir(C.CString(os.Args[1]))
 	if err != nil {
 		fmt.Printf("can't open %s: %v\n", os.Args[1], err)
