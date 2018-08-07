@@ -1,23 +1,17 @@
 package main
 
+/*
+#include <dirent.h>
+*/
+import "C"
+
 import (
 	"fmt"
+	"golang.org/x/sys/unix"
 	"log"
 	"os"
 	"unsafe"
-
-	"golang.org/x/sys/unix"
 )
-
-type Dirent struct {
-	Ino       uint64
-	Seekoff   uint64
-	Reclen    uint16
-	Namlen    uint16
-	Type      uint8
-	Name      [1024]int8
-	Pad_cgo_0 [3]byte
-}
 
 func main() {
 	var perm uint32
@@ -33,7 +27,7 @@ func main() {
 		var p []byte
 		p = append(p, buff...)
 		for len(p) > 0 {
-			rl_offset := unsafe.Offsetof(Dirent{}.Reclen)
+			rl_offset := unsafe.Offsetof(C.struct_dirent{}.d_reclen)
 			//rl_size := unsafe.Sizeof(Dirent{}.Reclen) // will always be 2, as its a uint16
 			if int(rl_offset) > len(p) || int(rl_offset+1) > len(p) {
 				break
@@ -47,9 +41,9 @@ func main() {
 			if len(record) == 0 {
 				break
 			} else {
-				nl_offset := unsafe.Offsetof(Dirent{}.Namlen)
+				nl_offset := unsafe.Offsetof(C.struct_dirent{}.d_namlen)
 				nl := uint64(record[nl_offset]) | uint64(record[nl_offset+1])<<8 // assuming big endian
-				name_offset := uint64(unsafe.Offsetof(Dirent{}.Name))
+				name_offset := uint64(unsafe.Offsetof(C.struct_dirent{}.d_name))
 
 				if name_offset+nl > uint64(len(p)) {
 					break
