@@ -13,7 +13,7 @@ import (
 func main() {
 	dir, err := C.opendir(C.CString(os.Args[1]))
 	if err != nil {
-		fmt.Println(err)
+		fmt.Printf("can't open %s: %v\n", os.Args[1], err)
 		return
 	}
 	defer C.closedir(dir)
