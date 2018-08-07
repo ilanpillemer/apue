@@ -14,7 +14,6 @@ import "C"
 const bufferSize = 4096
 
 func main() {
-
 	var buf [bufferSize]byte
 	n, _ := C.read(C.STDIN_FILENO, unsafe.Pointer(&buf[0]), C.ulong(bufferSize))
 	for n != 0 {
