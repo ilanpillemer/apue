@@ -2,21 +2,28 @@ package main
 
 /*
 #include <dirent.h>
+#include <stdlib.h>
 */
 import "C"
 
 import (
 	"fmt"
 	"os"
+	"unsafe"
 )
+
+// dirent.h provides opendir, readdir, closedir
+// stdlib.h provides free
 
 func main() {
 	if len(os.Args) != 2 {
 		fmt.Println("usage: myls directory_name")
 		os.Exit(1)
 	}
+	arg := C.CString(os.Args[1])
+	defer C.free(unsafe.Pointer(arg))
 
-	dir, err := C.opendir(C.CString(os.Args[1]))
+	dir, err := C.opendir(arg)
 	if err != nil {
 		fmt.Printf("can't open %s: %v\n", os.Args[1], err)
 		os.Exit(1)
