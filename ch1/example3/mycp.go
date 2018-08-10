@@ -21,7 +21,7 @@ func main() {
 		}
 	}
 
-	// C only flushes when it detects that stdout is a terminal. So
-	// this is needed when piping..
+	// C only flushes the buffer when it detects that stdout is a
+	// terminal. So this is needed when piping..
 	C.fflush(C.stdout)
 }
