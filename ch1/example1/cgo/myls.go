@@ -15,6 +15,10 @@ import (
 // dirent.h provides opendir, readdir, closedir
 // stdlib.h provides free
 
+// these calls are not sys calls, but standard library calls
+// directory entries are represented different in different
+// unix systems, and the system calls vary.
+
 func main() {
 	if len(os.Args) != 2 {
 		fmt.Println("usage: myls directory_name")
