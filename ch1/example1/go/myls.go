@@ -33,6 +33,8 @@ func main() {
 		os.Exit(1)
 	}
 
+	fmt.Println(".")
+	fmt.Println("..")
 	for _, f := range dir {
 		name := f.Name()
 		fmt.Println(name)

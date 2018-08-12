@@ -15,8 +15,8 @@ number of issues, namely :
 * the standard library in `C` abstracts this and optimises the manner
   in which directory entries are parsed for each operating system;
   similarly the Go authors have written a standard library for Go. The
-  standard library in Go; although it as to use the system calls; does
-  not use the `C` standard library.
+  standard library in Go; although it has to use the `C` system calls;
+  does not use the `C` standard library.
 
 ## Code Examples 
 
