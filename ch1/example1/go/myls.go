@@ -1,11 +1,5 @@
 package main
 
-/*
-#include <dirent.h>
-#include <stdlib.h>
-*/
-import "C"
-
 import (
 	"fmt"
 	"io/ioutil"
